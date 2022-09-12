@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-demo
+spec:
+  replicas: 10
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: rollout-demo
+  template:
+    metadata:
+      labels:
+        app: rollout-demo
+    spec:
+      containers:
+      - name: rollouts-demo
+        image: argoproj/rollouts-demo:blue
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  strategy:
+    canary: 
+      stableService: rollout-stable 
+      canaryService: rollout-canary 
+      trafficRouting:
+        nginx:
+          stableIngress: rollout-ingress  # required
+          # annotationPrefix: customingress.nginx.ingress.kubernetes.io # optional
+          # additionalIngressAnnotations:   # optional
+          #   canary-by-header: X-Canary
+          #   canary-by-header-value: iwantsit
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: 3h # waits for 3 hours
+      - setWeight: 40
+      - pause: {} # pause indefinitely
+      - setWeight: 60
+      - pause: {} # pause indefinitely
