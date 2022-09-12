@@ -1,7 +1,7 @@
 ## Approaching Argo Rollouts
 
 I created this lab, back in time, at work as spike once we decide to study Argo and maybe adopt it at work in my current project. \
-I have came across with it some days ago and I decided to publish here as well. \
+I have come across with it some days ago and I decided to publish here as well. \
 Whatever has been captured here can be definitely be found and better explained on the official [`Argo Rollouts website`](https://argoproj.github.io/argo-rollouts/). \
 This repository was meant to be an overview in the form of collection of labs and main concepts around this technology.
 
